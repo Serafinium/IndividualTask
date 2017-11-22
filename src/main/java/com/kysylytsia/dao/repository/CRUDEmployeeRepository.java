@@ -11,9 +11,10 @@ public interface CRUDEmployeeRepository {
 
     public void addEmployee(Employee employee);
     public boolean isPresentEmployeeByName(String str);
-    public Employee getEmployeeByName(String str);
+    public List<Employee> getEmployeeByName(String str);
     public void  updateEmployee(Employee employee);
-    public boolean deleteEmployeeByByName (String str);
+    public boolean deleteEmployeeByID (Employee employee);
     public List<Employee> getAllEmployee();
+    public List<Employee> getAllEmployeeByName(String name);
 
 }

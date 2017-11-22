@@ -32,7 +32,7 @@ public class Controller {
                     comandID = 0;
                     break;
                 case 2 :
-                    String employeeInformation = serviceEmployee.getEmployeeByNameFL().toString();
+                    String employeeInformation = serviceEmployee.getEmployeeByNameFL();
                     Logic.fileWriter(employeeInformation, "detailed information.txt");
                     System.out.println( employeeInformation );
                     System.out.println();

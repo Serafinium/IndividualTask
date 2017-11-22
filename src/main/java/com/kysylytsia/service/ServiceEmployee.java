@@ -8,7 +8,6 @@ import com.kysylytsia.dao.repository.CRUDEmployeeImpl;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -87,12 +86,16 @@ public class ServiceEmployee {
     }
 
 
-    public Employee getEmployeeByNameFL(){
+    public String getEmployeeByNameFL(){
 
         String res = Logic.inputNameFL();
-
+        String str="";
         if (crudEmployee.isPresentEmployeeByName(res)){
-            return crudEmployee.getEmployeeByName(res);
+            List<Employee> employees = crudEmployee.getEmployeeByName(res);
+            for (Employee e: employees){
+                str += e.toString() + "\n";
+            }
+            return str;
         }else{
             System.out.println("Працівника з даним Іменем/Фамілією не існує!");
             return getEmployeeByNameFL();
@@ -107,8 +110,12 @@ public class ServiceEmployee {
 
         Employee employee = null;
 
+        List <Employee> employees = crudEmployee.getEmployeeByName(res);
+
+
+
         if (crudEmployee.isPresentEmployeeByName(res)){
-            employee = crudEmployee.getEmployeeByName(res);
+            employee = ServiceMenu.chooseUpdate(employees);
         }else{
             System.out.println("Працівника з даним Іменем/Фамілією не існує!");
             updateEmployee();
@@ -274,8 +281,13 @@ public class ServiceEmployee {
 
         if (crudEmployee.isPresentEmployeeByName(res)) {
             System.out.println("Працівника виявлено!");
+
+            List<Employee> employees = crudEmployee.getAllEmployeeByName(res);
+
+            Employee employee = ServiceMenu.chooseDelete(employees);
+
             if( ServiceMenu.delete() ){
-                crudEmployee.deleteEmployeeByByName(res);
+                crudEmployee.deleteEmployeeByID(employee);
                 System.out.println("Користувача успішно видалено!\n");
             }
         } else{
